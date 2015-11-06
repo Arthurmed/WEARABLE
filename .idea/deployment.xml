@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData">
+    <serverData>
+      <paths name="BBB_MASTER">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/home/ubuntu/ros_workspace/wearable/" local="$PROJECT_DIR$/RASPI" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="BBB_SLAVE_ENCLUSTRA">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="BBB_WEARABLE">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/home/ubuntu/ros_workspace/wearable/" local="$PROJECT_DIR$/RASPI" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="PYBOARD">
+        <serverdata>
+          <mappings>
+            <mapping deploy="\" local="$PROJECT_DIR$/PYBOARD" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+  </component>
+</project>
+

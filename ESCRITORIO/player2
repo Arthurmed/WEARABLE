@@ -1,0 +1,118 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+#
+#       videoplayer.py
+#
+#       Copyright 2015 Recursos Python - www.recursospython.com
+#
+#
+
+import sys
+
+from PyQt4.QtCore import QEvent
+from PyQt4.QtGui import (QApplication, QHBoxLayout, QMainWindow,
+                         QLabel, QWidget, QPushButton, QVBoxLayout)
+from PyQt4.phonon import Phonon
+
+class MainWindow(QMainWindow):
+
+    def __init__(self):
+        QMainWindow.__init__(self)
+
+        # Controles principales para organizar la ventana.
+        self.widget = QWidget(self)
+        self.layout = QVBoxLayout()
+        self.bottom_layout = QHBoxLayout()
+
+        # Control de reproducción de video de Qt.
+        self.video_player = Phonon.VideoPlayer(
+            Phonon.VideoCategory, self)
+
+        # Botones de reproducción y pausa.
+        #self.play_button = QPushButton("Pausa", self)
+        #self.stop_button = QPushButton("Detener", self)
+
+        # Deslizadores para el volumen y transición del video.
+        #self.seek_slider = Phonon.SeekSlider(self)
+        #self.volume_slider = Phonon.VolumeSlider(self)
+
+        # Acomodar controles en la pantalla.
+        self.layout.addWidget(self.video_player)
+        #self.layout.addLayout(self.bottom_layout)
+        #self.bottom_layout.addWidget(self.play_button)
+        #self.bottom_layout.addWidget(self.stop_button)
+        #self.bottom_layout.addWidget(self.volume_slider)
+        #self.layout.addWidget(self.seek_slider)
+
+        # Conectar los eventos con sus correspondientes funciones.
+        #self.play_button.clicked.connect(self.play_clicked)
+        #self.stop_button.clicked.connect(self.stop_clicked)
+        #self.video_player.mediaObject().stateChanged.connect(
+        #    self.state_changed)
+
+        # Se utiliza installEventFilter() para capturar eventos
+        # del mouse en el control de video que utiliza internamente
+        # la clase Phonon.VideoPlayer.
+        self.video_player.videoWidget().installEventFilter(self)
+
+        # Personalizar la ventana.
+        self.setWindowTitle("Reproductor de video")
+        self.resize(800, 600)
+        self.layout.setMargin(0)
+        #self.bottom_layout.setMargin(0)
+        self.widget.setLayout(self.layout)
+        self.setCentralWidget(self.widget)
+
+        # Reproducir el archivo 'video.mp4'.
+        #self.video_player.play(Phonon.MediaSource("video.wmv"))
+        self.video_player.load(Phonon.MediaSource("./movies/El_profesional.mp4"))
+        self.video_player.play()
+
+        # Conectar el control de volumen y transición de video
+        # con las clases correspondientes.
+        #self.seek_slider.setMediaObject(self.video_player.mediaObject())
+        #self.volume_slider.setAudioOutput(
+        #    self.video_player.audioOutput())
+
+    # def play_clicked(self):
+    #     """
+    #     Comenzar o resumir la reproducción.
+    #     """
+    #     if (self.video_player.mediaObject().state() in
+    #         (Phonon.PausedState, Phonon.StoppedState)):
+    #         self.video_player.play()
+    #     else:
+    #         self.video_player.pause()
+    #
+    # def stop_clicked(self):
+    #     """
+    #     Detener la reproducción.
+    #     """
+    #     self.video_player.stop()
+    #
+    # def state_changed(self, newstate, oldstate):
+    #     """
+    #     Actualizar el texto de los botones de reproducción y pausa.
+    #     """
+    #     states = {
+    #         Phonon.PausedState: "Resumir",
+    #         Phonon.PlayingState: "Pausa",
+    #         Phonon.StoppedState: "Reproducir"
+    #     }
+    #     self.play_button.setText(states[newstate])
+    #     self.stop_button.setEnabled(newstate != Phonon.StoppedState)
+    #
+    # def eventFilter(self, obj, event):
+    #     """
+    #     Establecer o remover pantalla completa al obtener
+    #     el evento MouseButtonDblClick.
+    #     """
+    #     if event.type() == QEvent.MouseButtonDblClick:
+    #         obj.setFullScreen(not obj.isFullScreen())
+    #     return False
+
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    window = MainWindow()
+    window.show()
+    sys.exit(app.exec_())

@@ -1,0 +1,44 @@
+#! /bin/sh
+
+# EN ESTE FICHERO SE ENCUENTRAN LAS VARIABLES QUE HAY QUE CONFIGURAR PARA CADA MÁQUINA
+# LA RUTA IDEAL PARA ESTE FICHERO /home/ubuntu/ros_workspace/aristarko/src/robotManager
+
+# Existe una variable llamada $RUTA_MANAGER la cual contiene el directorio de esta carpeta (ROBOT_MANAGER)
+# Por defecto es /home/ubuntu/ros_workspace/aristarko/src/robotManager
+# Para modificarla /etc/init.d/robotManager.sh
+
+# ip local de la maquina y direccion ip del master
+IP_LOCAL=192.168.1.21
+IP_MASTER=192.168.1.21
+
+
+# Nombre de usuario, workspace y paquete que se utilizarán para crear las rutas
+NAME_USUARIO="ubuntu" # Nombre de usuario
+NAME_WORKSPACE="ros_workspace" # Nombre del workspace (Se instalará en el /home)
+NAME_PAQUETE="aristarko" # Nombre del paquete
+
+
+# Rutas Variables
+RUTA_ROS="/opt/ros/indigo" # direccion de la ruta de ROS
+RUTA_ROS_WS="/home/"${NAME_USUARIO}"/"${NAME_WORKSPACE} # dirección del workspace de ROS
+RUTA_ROS_PKG=${RUTA_ROS_WS}"/"${NAME_PAQUETE} # direccion del paquete
+RUTA_SETUP_GLOBAL=${RUTA_ROS}"/setup.bash"
+RUTA_SETUP_WS=${RUTA_ROS_WS}"/setup.bash" # Dirección del setup del workspace de ros
+RUTA_CODIGO=${RUTA_ROS_WS}"/"${NAME_PAQUETE}"/src" # Dirección de la carpeta que contiene los ejecutables
+RUTA_ROBOT_MANAGER=${RUTA_CODIGO}"/ROBOT_MANAGER" # Dirección de la carpeta ROBOT_MANAGER
+
+
+# DEBUG=true significa que robotManager se encargará de hacer log en la ruta especificada
+DEBUG=false
+
+# Ruta de los logs
+LOG_OUT=${RUTA_ROBOT_MANAGER}"/stdout.log"
+LOG_ERR=${RUTA_ROBOT_MANAGER}"/stderr.log"
+
+# Ruta de archivos python a ejecutar
+# Se trata de un array introducir nuevos debajo
+# Insertar ruta absoluta, desde la raiz del sistema "/"
+EXE_PYTHON=(
+	"/home/ubuntu/ros_workspace/wearable/src/capa0.py"
+	"/home/ubuntu/ros_workspace/wearable/src/bridge.py"
+)
